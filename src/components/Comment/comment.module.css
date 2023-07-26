@@ -1,0 +1,33 @@
+.comment__box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    overflow-wrap: break-word;
+    padding: 5px;
+ 
+}
+
+.comment__img {
+    margin-right: 10px;
+    transition: transform 0.3s ease;
+}
+
+.comment__img:hover {
+    transform: scale(1.4);
+}
+
+.none {
+    display: none;
+}
+
+.response {
+    font-size: 14px;
+    color: darkgrey;
+}
+
+.response__box {
+    max-width: 570px;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}

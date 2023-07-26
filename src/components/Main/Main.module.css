@@ -1,0 +1,46 @@
+.container {
+    margin: 0 auto;
+    max-width: 700px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.btn__container {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+.reset__btn {
+    border: none;
+    border-radius: 100px;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reset__btn img {
+    width: 30px;
+    height: 30px;
+}
+
+button {
+    width: 125px;
+    height: 60px;
+    border-radius: 16px;
+    background: #1B1B1C;
+    color: white;
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    border: none;
+}
+
+button:hover {
+    background: #056DFA;
+    color: white;
+}
+

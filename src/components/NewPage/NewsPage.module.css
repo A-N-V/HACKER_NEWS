@@ -1,0 +1,101 @@
+.container {
+    margin: 0 auto;
+    max-width: 700px;
+}
+
+.time {
+    display: flex;
+}
+
+.timer {
+    width: 16.265px;
+    height: 16.265px;
+    margin-right: 10px;
+}
+
+.new__block {
+    min-height: 603px;
+    border-radius: 10px;
+    background: linear-gradient(360deg, #FFCECB 0%, #FFF1DC 54.09%, #FFF 100%);
+    padding: 50px;
+}
+
+.new__block__title {
+    font-size: 27.577px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    min-width: 300px;
+    overflow-x: auto;
+}
+
+.new__block__date {
+    font-size: 16.012px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 17.892px; 
+}
+
+.new__block__linkBlock {
+    overflow-x: auto;
+}
+
+.new__block__link {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 50px;
+}
+
+.new__block__info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.new__block__comments {
+    margin: 0 auto;
+    max-width: 600px;
+    height: 300px;
+    border-radius: 10px;
+    background: #FFF;
+    box-shadow: 4px 4px 5px 0px rgba(72, 55, 101, 0.10) inset;
+    overflow-y: auto;
+}
+
+.goBack__btn {
+    margin-bottom: 10px;
+}
+
+
+.reload__box {
+    display: flex;
+    margin-top: 20px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.svgImage {
+    width: 30px;
+    height: 30px;
+ }
+ 
+
+ @keyframes rotateAnimation {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .rotate {
+    animation: rotateAnimation 0.5s forwards;
+    animation-iteration-count: 1;
+    animation-direction: alternate-reverse;
+
+  }

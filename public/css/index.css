@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Overpass:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+html {
+    font-family: "Overpass";
+    font-weight: regular;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    padding-top: 30px;
+    background: linear-gradient(130deg, #7DB1FF 2.53%, #FFCECB 100%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}

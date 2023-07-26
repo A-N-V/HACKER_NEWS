@@ -1,0 +1,16 @@
+.comment__box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    overflow-wrap: break-word;
+    padding: 5px;
+ 
+}
+
+.comment__img {
+    margin-right: 10px;
+}
+
+.comment {
+    border-left: 2px solid #ccc;
+}
