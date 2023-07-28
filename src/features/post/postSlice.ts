@@ -26,19 +26,19 @@ export interface Comment extends Post {
 
 interface PostState {
   posts: Post[];
+  isFetching: boolean;
 }
 
 const initialState: PostState = {
   posts: [],
+  isFetching: true,
 };
 
 //==================================================================
-export const fetchPosts = createAsyncThunk<
-  void,
-  undefined,
-  { rejectValue: string }
->("posts/fetchPosts", async (_, { rejectWithValue, dispatch }) => {
+export const fetchPosts = createAsyncThunk<void,undefined,{ rejectValue: string }>(
+  "posts/fetchPosts", async (_, { rejectWithValue, dispatch }) => {
   try {
+    dispatch(setIsFetching(true));
     const ids = await postRequest({
       url: "https://hacker-news.firebaseio.com/v0/topstories.json",
       params: { print: "pretty" },
@@ -57,6 +57,7 @@ export const fetchPosts = createAsyncThunk<
       const posts = container.map((post) => post.data);
       dispatch(setPosts(posts));
     }
+    dispatch(setIsFetching(false));
   } catch (error) {
     return rejectWithValue((error as { message: string}).message);
   }
@@ -70,6 +71,10 @@ export const postSlice = createSlice({
 
     setPosts: (state, action: PayloadAction<Post[]>) => {
       state.posts = [...action.payload];
+    },
+
+    setIsFetching: (state, action: PayloadAction<boolean>) => {
+      state.isFetching = action.payload;
     },
 
     sortPosts: (state, action: PayloadAction<Post[]>) => {
@@ -95,5 +100,5 @@ export const postSlice = createSlice({
   },
 });
 
-export const { setPosts, sortPosts } = postSlice.actions;
+export const { setPosts, sortPosts, setIsFetching } = postSlice.actions;
 export default postSlice.reducer;

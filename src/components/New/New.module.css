@@ -5,9 +5,10 @@
     flex-direction: column;
     border-radius: 16px;
     box-shadow: 0px 12px 24px 0px rgba(0, 0, 0, 0.20), 0px 4px 8px 0px rgba(0, 0, 0, 0.30);
-    background: #AB8DFF;
+    background: #2787F5;
     min-height: 60px;
     margin-bottom: 10px;
+    overflow: hidden;
 }
 
 .new__box__wrap {
@@ -25,8 +26,9 @@
 }
 
 a {
+    color: white;
     text-decoration: none;
-    width: 650px;
+    max-width: 650px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
