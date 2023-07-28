@@ -13,6 +13,7 @@ const CommentNode: React.FC<CommentNodeProp> = ({ comment, txt }) => {
     const { text, comments } = comment;
     const isDeletedComment = text === "[dead]" || text === "comment has been deleted" || text === "[flagged]";
     const hasHTMLTags = /<[^>]+>/g.test(text? text : '');
+    
     if (txt) {
       return (
         <div>

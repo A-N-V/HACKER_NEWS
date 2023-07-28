@@ -4,14 +4,17 @@ import styles from "./NewsPage.module.css";
 import vector from "../../icons/Vector.svg";
 import Comment from "../Comment/Comment";
 import axios from "axios";
-import reload from "../../icons/Reload2.svg";
+import reload from "../../icons/Reload.svg";
 import { Post } from "../../features/post/postSlice";
+import { Preloader } from "../Preloader/Preloader";
 
 interface NewPageProp {
   post: Post;
 }
 
 const NewsPage: React.FC<NewPageProp> = ({ post }) => {
+  const [isRotating, setIsRotating] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [comments, setComments] = useState<Post[]>([]);
   const navigate = useNavigate();
   const handleGoBack = useCallback(() => {
@@ -19,6 +22,7 @@ const NewsPage: React.FC<NewPageProp> = ({ post }) => {
   }, [navigate]);
 
   const fetchData = async () => {
+    setIsLoading(true);
     if (post.kids && post.kids.length > 0) {
       const promises = post.kids.map(async (id) => {
         try {
@@ -38,6 +42,7 @@ const NewsPage: React.FC<NewPageProp> = ({ post }) => {
         console.error(error);
       }
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -49,7 +54,6 @@ const NewsPage: React.FC<NewPageProp> = ({ post }) => {
       date = new Date(post.time * 1000).toLocaleString();
   }
 
-  const [isRotating, setIsRotating] = useState(false);
 
   const handleRotateClick = () => {
     fetchData();
@@ -67,11 +71,11 @@ const NewsPage: React.FC<NewPageProp> = ({ post }) => {
         <div>
           <div className={styles.new__block__info}>
             <h1 className={styles.new__block__title}>New by: {post.by}</h1>
-            <div className={styles.time}>
+          </div>
+          <div className={styles.time}>
               <img src={vector} alt="timer img" className={styles.timer} />
               <p className={styles.new__block__date}>Time: {date}</p>
             </div>
-          </div>
           <div className={styles.new__block__linkBlock}>
             <p className={styles.new__block__text}>{post.title}</p>
             <a
@@ -80,7 +84,7 @@ const NewsPage: React.FC<NewPageProp> = ({ post }) => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              {post.url}{" "}
+              visit page
             </a>
           </div>
         </div>
@@ -101,7 +105,11 @@ const NewsPage: React.FC<NewPageProp> = ({ post }) => {
           />
         </div>
         <div className={styles.new__block__comments}>
-          {post.kids &&
+          
+        {isLoading ? (
+                  <Preloader /> 
+        ) : (
+          post.kids &&
             post.kids.length > 0 &&
             comments.map((comment, index) => (
               <Comment
@@ -110,7 +118,8 @@ const NewsPage: React.FC<NewPageProp> = ({ post }) => {
                 id={comment.id ? comment.id : 0}
                 kids={comment.kids ? comment.kids.length : 0}
               />
-            ))}
+            ))
+        )}
         </div>
       </div>
     </div>

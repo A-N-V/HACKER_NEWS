@@ -10,6 +10,8 @@
 .comment__img {
     margin-right: 10px;
     transition: transform 0.3s ease;
+    width: 27px;
+    height: 27px;
 }
 
 .comment__img:hover {

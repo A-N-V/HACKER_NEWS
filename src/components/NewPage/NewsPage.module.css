@@ -5,6 +5,7 @@
 
 .time {
     display: flex;
+    margin-bottom: 30px;
 }
 
 .timer {
@@ -16,7 +17,7 @@
 .new__block {
     min-height: 603px;
     border-radius: 10px;
-    background: linear-gradient(360deg, #FFCECB 0%, #FFF1DC 54.09%, #FFF 100%);
+    background: #2787F5;
     padding: 50px;
 }
 
@@ -27,6 +28,7 @@
     line-height: normal;
     min-width: 300px;
     overflow-x: auto;
+    color: white;
 }
 
 .new__block__date {
@@ -34,18 +36,27 @@
     font-style: normal;
     font-weight: 500;
     line-height: 17.892px; 
-}
-
-.new__block__linkBlock {
-    overflow-x: auto;
+    color: white;
 }
 
 .new__block__link {
-    font-size: 14px;
+    font-size: 16px;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 700;
     line-height: normal;
     margin-bottom: 50px;
+    width: 30px;
+    text-align: center;
+    padding: 5px;
+    background: white;
+    color: #2787F5;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.new__block__link:hover {
+    background: black;
+    color: white;
 }
 
 .new__block__info {
@@ -63,6 +74,15 @@
     background: #FFF;
     box-shadow: 4px 4px 5px 0px rgba(72, 55, 101, 0.10) inset;
     overflow-y: auto;
+}
+
+.new__block__comment__text {
+    color: white;
+}
+
+.new__block__text {
+    margin-bottom: 15px;
+    color: white;
 }
 
 .goBack__btn {
