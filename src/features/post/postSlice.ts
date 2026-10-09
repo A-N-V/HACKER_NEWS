@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import axios from "axios";
-import { postRequest } from "../../postRequest";
+import { fetchItems, fetchTopStoryIds } from "../../lib/api";
 
 export interface Post {
   id?: number;
@@ -20,85 +19,66 @@ export interface Post {
   descendants?: number;
 }
 
-export interface Comment extends Post {
-  comments?: Post[];
-}
+export type SortMode = "top" | "new";
+
+const STORIES_LIMIT = 100;
 
 interface PostState {
   posts: Post[];
   isFetching: boolean;
+  error: string | null;
+  sortMode: SortMode;
+  lastUpdated: number | null;
 }
 
 const initialState: PostState = {
   posts: [],
   isFetching: true,
+  error: null,
+  sortMode: "top",
+  lastUpdated: null,
 };
 
 //==================================================================
-export const fetchPosts = createAsyncThunk<void,undefined,{ rejectValue: string }>(
-  "posts/fetchPosts", async (_, { rejectWithValue, dispatch }) => {
-  try {
-    dispatch(setIsFetching(true));
-    const ids = await postRequest({
-      url: "https://hacker-news.firebaseio.com/v0/topstories.json",
-      params: { print: "pretty" },
-      method: "GET",
-    });
-
-    if (ids) {
-      ids.data.length = 100;
-      const postPromises = ids.data.map((id) =>
-        axios.get(
-          `https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`
-        )
-      );
-
-      const container = await Promise.all(postPromises);
-      const posts = container.map((post) => post.data);
-      dispatch(setPosts(posts));
+export const fetchPosts = createAsyncThunk<Post[], undefined, { rejectValue: string }>(
+  "posts/fetchPosts",
+  async (_, { rejectWithValue }) => {
+    try {
+      const ids = await fetchTopStoryIds();
+      return await fetchItems(ids.slice(0, STORIES_LIMIT));
+    } catch (error) {
+      return rejectWithValue((error as { message: string }).message);
     }
-    dispatch(setIsFetching(false));
-  } catch (error) {
-    return rejectWithValue((error as { message: string}).message);
   }
-});
+);
 //==================================================================
 
 export const postSlice = createSlice({
   name: "posts",
   initialState,
   reducers: {
-
-    setPosts: (state, action: PayloadAction<Post[]>) => {
-      state.posts = [...action.payload];
-    },
-
-    setIsFetching: (state, action: PayloadAction<boolean>) => {
-      state.isFetching = action.payload;
-    },
-
-    sortPosts: (state, action: PayloadAction<Post[]>) => {
-
-      const buf = [...action.payload];
-
-      buf.sort((a, b) => {
-        if (a.time && b.time) {
-          return a.time > b.time ? -1 : 1;
-        }
-        return 0;
-      });
-      
-      state.posts = [...buf];
+    setSortMode: (state, action: PayloadAction<SortMode>) => {
+      state.sortMode = action.payload;
     },
   },
 
   extraReducers: (builder) => {
     builder
-      .addCase(fetchPosts.fulfilled, () => console.log("fulfilled"))
-      .addCase(fetchPosts.pending, () => console.log("pending"))
-      .addCase(fetchPosts.rejected, () => console.log("rejected"));
+      .addCase(fetchPosts.pending, (state) => {
+        state.isFetching = true;
+        state.error = null;
+      })
+      .addCase(fetchPosts.fulfilled, (state, action) => {
+        state.posts = action.payload;
+        state.isFetching = false;
+        state.lastUpdated = Date.now();
+      })
+      .addCase(fetchPosts.rejected, (state, action) => {
+        state.isFetching = false;
+        state.error = action.payload ?? "Failed to load stories";
+      });
   },
 });
 
-export const { setPosts, sortPosts, setIsFetching } = postSlice.actions;
+export const { setSortMode } = postSlice.actions;
 export default postSlice.reducer;

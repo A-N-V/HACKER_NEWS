@@ -1,0 +1,41 @@
+.root + .root {
+  border-top: 1px solid var(--mantine-color-default-border);
+}
+
+.comment {
+  padding-block: var(--mantine-spacing-sm);
+}
+
+.body {
+  padding-left: 34px;
+  padding-top: 4px;
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    padding-left: 0;
+  }
+}
+
+.text {
+  font-size: var(--mantine-font-size-sm);
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+
+  & p {
+    margin-bottom: var(--mantine-spacing-xs);
+  }
+
+  & pre {
+    font-size: var(--mantine-font-size-xs);
+  }
+}
+
+.replies {
+  margin-top: var(--mantine-spacing-xs);
+  padding-left: var(--mantine-spacing-md);
+  border-left: 2px solid light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-4));
+  transition: border-color 150ms ease;
+
+  &:hover {
+    border-left-color: var(--mantine-color-brand-filled);
+  }
+}

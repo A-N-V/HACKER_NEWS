@@ -1,0 +1,49 @@
+.card {
+  transition:
+    transform 150ms ease,
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.card:hover {
+  border-color: var(--mantine-color-brand-filled);
+  box-shadow: var(--mantine-shadow-md);
+  transform: translateY(-1px);
+}
+
+.card:hover .title {
+  color: var(--mantine-color-brand-text);
+}
+
+.rank {
+  min-width: 28px;
+  padding-top: 2px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 56px;
+  padding: 6px 8px;
+  border-radius: var(--mantine-radius-md);
+  background: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-7));
+  color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-1));
+  font-variant-numeric: tabular-nums;
+}
+
+/* Attribute selector matches the specificity of the dark-scheme .score rule */
+[data-mantine-color-scheme] .score.hot {
+  background: var(--mantine-color-brand-light);
+  color: var(--mantine-color-brand-light-color);
+}
+
+.meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
